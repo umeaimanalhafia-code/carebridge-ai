@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareBridge AI | Your Doctor, One Video Call Away</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Medical Safety Notice Banner -->
+  <div class="emergency-banner no-print">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i>
+        <span><strong>Medical Safety Notice:</strong> CareBridge AI does not diagnose or replace a qualified doctor. For emergencies, contact local emergency services immediately.</span>
+      </div>
+      <button class="emergency-badge-btn" onclick="openEmergencyModal('Direct Header Review')">
+        Emergency Red Flags (911 / 112 / 1122)
+      </button>
+    </div>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <header class="no-print">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" onclick="switchView('home')">
+        <div class="brand-icon">
+          <i data-lucide="activity" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div>
+          <span>CareBridge<span style="color: var(--primary-blue);">AI</span></span>
+          <p style="font-size: 0.65rem; color: var(--text-muted); font-weight: 500; margin-top: -3px;">Your Doctor, One Video Call Away</p>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><button class="active" onclick="switchView('home')">Home</button></li>
+        <li><button onclick="switchView('doctors')">Find Doctors</button></li>
+        <li><button onclick="switchView('ai-assistant')">AI Health Assistant <span class="badge badge-teal" style="font-size: 0.65rem; padding: 2px 6px;">AI</span></button></li>
+        <li><button onclick="switchView('dashboard')">Patient Dashboard</button></li>
+        <li><button onclick="switchView('doctor-dashboard')">Doctor Portal <span class="badge badge-blue" style="font-size: 0.65rem; padding: 2px 6px;">MD</span></button></li>
+        <li><button onclick="switchView('prescriptions')">Prescriptions</button></li>
+        <li><button onclick="switchView('consultation')"><i data-lucide="video" style="width: 14px; height: 14px;"></i> Live Call</button></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Role Switcher Pill -->
+        <button class="btn btn-secondary" onclick="toggleUserRole()" id="role-toggle-btn" title="Switch between Patient and Doctor view">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary-blue); display: inline-block;" id="role-dot"></span>
+          <span id="role-label">Patient View</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button class="btn btn-secondary" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="padding: 10px;">
+          <i data-lucide="moon" id="theme-icon" style="width: 18px; height: 18px;"></i>
+        </button>
+
+        <!-- Emergency Alert Button -->
+        <button class="btn btn-danger" onclick="openEmergencyModal('Quick Navbar Check')" style="font-size: 0.75rem; padding: 8px 12px;">
+          <i data-lucide="shield-alert" style="width: 14px; height: 14px;"></i>
+          <span>Emergency</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1: LANDING PAGE ==================== -->
+  <main id="view-home" class="app-view active">
+    <!-- Hero Section -->
+    <section class="hero-section container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="badge badge-blue">Next-Gen Telemedicine Platform</span>
+          <h1>Healthcare That <br><span class="hero-gradient-text">Reaches You</span></h1>
+          <p class="hero-tagline">“Your Doctor, One Video Call Away.”</p>
+          <p class="hero-subtitle">
+            CareBridge AI is a secure telemedicine platform where patients connect with doctors through live video calls, while AI prepares symptom summaries, supports multiple languages, and helps doctors create approved consultation notes faster.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="switchView('doctors')">
+              <i data-lucide="video" style="width: 18px; height: 18px;"></i>
+              <span>Book a Consultation</span>
+            </button>
+            <button class="btn btn-secondary" onclick="switchView('ai-assistant')">
+              <i data-lucide="sparkles" style="width: 18px; height: 18px; color: var(--accent-teal);"></i>
+              <span>Try AI Health Assistant</span>
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <div>
+              <strong style="font-size: 1.5rem; display: block;">15 min</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Avg. wait time</span>
+            </div>
+            <div>
+              <strong style="font-size: 1.5rem; display: block; color: var(--accent-teal);">4.95 ★</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Patient satisfaction</span>
+            </div>
+            <div>
+              <strong style="font-size: 1.5rem; display: block;">100%</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Verified Doctors</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Mockup Video Card -->
+        <div class="video-mockup-wrapper">
+          <div class="video-mockup-inner">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" alt="Doctor Consultation" class="video-mockup-img">
+            <div style="position: absolute; top: 12px; left: 12px; background: rgba(220, 38, 38, 0.9); color: white; padding: 4px 10px; border-radius: 999px; font-size: 0.7rem; font-weight: 700;">
+              LIVE HD • 08:42
+            </div>
+            <div style="position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: var(--radius-sm); color: white;">
+              <strong style="font-size: 0.85rem; display: block;">Dr. Sarah Jenkins, MD</strong>
+              <span style="font-size: 0.7rem; color: var(--accent-teal);">Cardiology Specialist</span>
+            </div>
+
+            <!-- Floating PIP -->
+            <div class="mockup-pip">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Patient">
+              <div class="mockup-pip-label">You (Sarah)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Platform Pillars Showcase -->
+    <section class="container">
+      <div class="pillars-card">
+        <span class="badge badge-teal" style="margin-bottom: 12px;">Core Architecture</span>
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 12px;">A Unified Ecosystem for Patients & Doctors</h2>
+        <p style="color: #cbd5e1; max-width: 700px; font-size: 0.95rem;">
+          CareBridge AI is a secure telemedicine platform where patients connect with doctors through live video calls, while AI prepares symptom summaries, supports multiple languages, and helps doctors create approved consultation notes faster.
+        </p>
+
+        <div class="pillars-grid">
+          <div class="pillar-item">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📹</div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Live Video Calls</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Direct face-to-face encrypted video consultations with licensed specialists right in your browser.</p>
+          </div>
+          <div class="pillar-item">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">✨</div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">AI Symptom Summaries</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Pre-triage assistant collecting symptom duration, severity, and relevant medical history before visits.</p>
+          </div>
+          <div class="pillar-item">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🌐</div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Multilingual Support</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Full conversational interface and voice input in English, Urdu (اردو), and Roman Urdu.</p>
+          </div>
+          <div class="pillar-item">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📋</div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Faster Approved Notes</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Real-time AI live transcription and prescription builder with explicit doctor legal sign-off.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works (3 Steps) -->
+    <section class="container" style="padding: 40px 20px;">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <span class="badge badge-teal">Simple Process</span>
+        <h2 style="font-size: 2rem; font-weight: 800; margin-top: 8px;">How CareBridge Works</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+        <div style="background: var(--bg-card); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+          <div style="width: 44px; height: 44px; background: rgba(37,99,235,0.1); color: var(--primary-blue); font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 16px;">1</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Tell us your symptoms</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Chat with CareBridge AI in English or Urdu to organize your timeline, severity, and health concerns.</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+          <div style="width: 44px; height: 44px; background: rgba(20,184,166,0.1); color: var(--accent-teal); font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 16px;">2</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Choose a doctor</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Select from certified cardiologists, dermatologists, pediatricians, or family physicians by rating and language.</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+          <div style="width: 44px; height: 44px; background: rgba(99,102,241,0.1); color: #6366f1; font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 16px;">3</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Consult by secure video</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Consult face-to-face, view live structured notes, and receive an instant doctor-approved digital prescription.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== VIEW 2: FIND A DOCTOR ==================== -->
+  <main id="view-doctors" class="app-view container" style="padding: 40px 20px;">
+    <div style="margin-bottom: 24px;">
+      <span class="badge badge-blue">Verified Medical Practitioners</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Find a Doctor</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Browse licensed physicians, review qualifications, and book a video consultation slot.</p>
+    </div>
+
+    <!-- Search & Filters Bar -->
+    <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 24px;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 14px;">
+        <input type="text" id="doc-search-input" placeholder="Search by doctor name, specialty, hospital..." class="chat-input" oninput="filterDoctors()">
+        <select id="doc-specialty-filter" class="chat-input" onchange="filterDoctors()">
+          <option value="All">All Specialties</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="General Physician">General Physician</option>
+          <option value="Dermatologist">Dermatologist</option>
+          <option value="Pediatrician">Pediatrician</option>
+          <option value="Mental Health">Mental Health</option>
+        </select>
+        <select id="doc-lang-filter" class="chat-input" onchange="filterDoctors()">
+          <option value="All">All Languages</option>
+          <option value="English">English</option>
+          <option value="Urdu">Urdu</option>
+          <option value="Spanish">Spanish</option>
+        </select>
+        <select id="doc-avail-filter" class="chat-input" onchange="filterDoctors()">
+          <option value="All">Any Time</option>
+          <option value="Today">Available Today</option>
+          <option value="Online">Online Now 🟢</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Doctors Cards Grid -->
+    <div class="doctors-grid" id="doctors-container">
+      <!-- Populated dynamically via app.js -->
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 3: AI HEALTH ASSISTANT ==================== -->
+  <main id="view-ai-assistant" class="app-view container" style="padding: 40px 20px;">
+    <div class="chat-container">
+      <div class="chat-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="msg-avatar ai"><i data-lucide="bot" style="width: 20px; height: 20px;"></i></div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800;">CareBridge AI Health Assistant</h3>
+            <p style="font-size: 0.7rem; color: var(--text-muted);">Pre-consultation clinical symptom organizer</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 6px;">
+          <button class="chat-pill active" onclick="setAILanguage('en')" id="btn-lang-en">English</button>
+          <button class="chat-pill" onclick="setAILanguage('ur')" id="btn-lang-ur">اردو</button>
+          <button class="chat-pill" onclick="setAILanguage('ur-Latn')" id="btn-lang-roman">Roman Urdu</button>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chat-messages-container">
+        <!-- Chat bubbles populated via app.js -->
+      </div>
+
+      <div class="chat-input-bar">
+        <button class="btn btn-secondary" onclick="simulateVoiceInput()" title="Voice Input Simulation" style="padding: 10px 14px;">
+          <i data-lucide="mic" style="width: 18px; height: 18px; color: var(--danger-red);"></i>
+        </button>
+        <input type="text" id="ai-chat-input" class="chat-input" placeholder="Type your symptoms or concern..." onkeydown="if(event.key === 'Enter') sendUserAIMessage()">
+        <button class="btn btn-primary" onclick="sendUserAIMessage()">
+          <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 4: VIDEO CONSULTATION ROOM ==================== -->
+  <main id="view-consultation" class="app-view">
+    <div class="consultation-layout">
+      <!-- Video Left Stage -->
+      <div class="video-main-stage">
+        <div style="padding: 12px 20px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; color: white;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+            <span style="font-weight: 700; font-size: 0.85rem;" id="call-doc-name">Dr. Sarah Jenkins, MD</span>
+            <span class="badge badge-teal" style="font-size: 0.65rem;">Cardiology</span>
+          </div>
+          <div style="font-family: monospace; font-size: 0.85rem;" id="call-timer">04:20</div>
+        </div>
+
+        <div style="flex: 1; position: relative;">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" class="video-feed" alt="Doctor Stream">
+          
+          <!-- Patient Floating PIP -->
+          <div class="floating-pip">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" style="width: 100%; height: 100%; object-fit: cover;" alt="Self">
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; font-size: 0.65rem; text-align: center; padding: 2px;">
+              Sarah Ahmed (You)
+            </div>
+          </div>
+        </div>
+
+        <!-- In-Call Bottom Controls Bar -->
+        <div class="video-controls-bar">
+          <button class="control-btn" onclick="toggleMic(this)" title="Toggle Mic"><i data-lucide="mic"></i></button>
+          <button class="control-btn" onclick="toggleCam(this)" title="Toggle Camera"><i data-lucide="video"></i></button>
+          <button class="control-btn" onclick="toggleShare(this)" title="Share Screen"><i data-lucide="share-2"></i></button>
+          <button class="btn btn-danger" onclick="endCall()" style="border-radius: 14px; padding: 12px 20px;">
+            <i data-lucide="phone-off" style="width: 18px; height: 18px;"></i>
+            <span>End Consultation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Panel: AI Live Notes & Chat -->
+      <div style="background: #0f172a; border-left: 1px solid #1e293b; color: white; display: flex; flex-direction: column;">
+        <div style="display: flex; border-bottom: 1px solid #1e293b; padding: 8px;">
+          <button class="chat-pill active" style="color: white; background: #1e293b;" onclick="switchCallTab('live-notes')">AI Live Notes</button>
+          <button class="chat-pill" style="color: #94a3b8;" onclick="switchCallTab('call-chat')">In-Call Chat</button>
+        </div>
+
+        <div id="call-panel-content" style="flex: 1; padding: 16px; overflow-y: auto; font-size: 0.85rem;">
+          <!-- Content switched dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 5: PATIENT DASHBOARD ==================== -->
+  <main id="view-dashboard" class="app-view container" style="padding: 40px 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <div>
+        <span class="badge badge-green">Active Patient Profile</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Welcome, Sarah Ahmed</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Medical ID: CB-892401 • Blood Group: B+</p>
+      </div>
+      <button class="btn btn-primary" onclick="switchView('doctors')">+ Book Appointment</button>
+    </div>
+
+    <!-- Upcoming Consultation Card -->
+    <div style="background: linear-gradient(135deg, #0b1f3a, #1e3a8a); color: white; padding: 30px; border-radius: var(--radius-xl); margin-bottom: 30px; box-shadow: var(--shadow-lg);">
+      <span class="badge badge-teal" style="margin-bottom: 12px;">Confirmed Video Visit</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: gap: 20px;">
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400" style="width: 70px; height: 70px; border-radius: 16px; object-fit: cover;" alt="Doctor">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Dr. Sarah Jenkins, MD</h3>
+            <p style="color: #93c5fd; font-size: 0.85rem;">Senior Consultant Cardiologist</p>
+            <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 4px;">📅 Today, 02:30 PM • Video Consultation Room</p>
+          </div>
+        </div>
+        <button class="btn btn-teal" onclick="switchView('consultation')" style="padding: 12px 24px; font-size: 0.95rem;">
+          <i data-lucide="video" style="width: 18px; height: 18px;"></i>
+          <span>Join Video Call Now</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Health Overview Cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+      <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">UPCOMING VISITS</span>
+        <strong style="font-size: 2rem; display: block; margin: 6px 0;">1</strong>
+        <span style="color: var(--primary-blue); font-size: 0.8rem; font-weight: 600;">Dr. Sarah Jenkins (Today)</span>
+      </div>
+      <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">ACTIVE PRESCRIPTIONS</span>
+        <strong style="font-size: 2rem; display: block; margin: 6px 0;" id="active-rx-count">1</strong>
+        <span style="color: var(--success-green); font-size: 0.8rem; font-weight: 600;">Doctor-Approved ✓</span>
+      </div>
+      <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">AI TRIAGE BRIEF</span>
+        <strong style="font-size: 2rem; display: block; margin: 6px 0;">Active</strong>
+        <span style="color: var(--accent-teal); font-size: 0.8rem; font-weight: 600;">Ready for consultation</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 6: DOCTOR DASHBOARD & PRESCRIPTION BUILDER ==================== -->
+  <main id="view-doctor-dashboard" class="app-view container" style="padding: 40px 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div>
+        <span class="badge badge-teal">Clinical Provider Portal</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Dr. Sarah Jenkins, MD</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Cardiology Department • License #MD-92847-US</p>
+      </div>
+      <button class="btn btn-primary" onclick="switchView('consultation')">Enter Consultation Room</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px;">
+      <!-- Clinical Notes Editor -->
+      <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px;">Clinical SOAP Notes</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Patient: Sarah Ahmed (Age: 32)</p>
+        <textarea id="doctor-soap-notes" rows="6" class="chat-input" style="width: 100%; margin-bottom: 12px;">Patient presented with exertional retrosternal discomfort and palpitations for 4 days. Blood pressure 128/82 mmHg, pulse 76 bpm regular rhythm. Suspected benign premature ventricular contractions. Advised standard resting 12-lead ECG.</textarea>
+        <button class="btn btn-secondary" onclick="saveDoctorNotes()">Save Clinical Notes</button>
+      </div>
+
+      <!-- Prescription Builder -->
+      <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px;">Prescription Builder</h3>
+        
+        <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 4px;">Clinical Diagnosis:</label>
+        <input type="text" id="rx-diagnosis-input" class="chat-input" value="Benign exertional palpitations / mild arrhythmia" style="width: 100%; margin-bottom: 16px;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <label style="font-size: 0.8rem; font-weight: 700;">Prescribed Medications:</label>
+          <button class="btn btn-secondary" onclick="addMedicationRow()" style="font-size: 0.75rem; padding: 4px 10px;">+ Add Medication</button>
+        </div>
+
+        <div id="rx-meds-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+          <!-- Med rows populated dynamically -->
+        </div>
+
+        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 0.8rem;">
+          <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="doctor-sign-checkbox" style="margin-top: 3px;">
+            <span><strong>Doctor Legal Sign-off:</strong> I, Dr. Sarah Jenkins, MD, explicitly certify and approve this medical prescription for the patient.</span>
+          </label>
+        </div>
+
+        <button class="btn btn-teal" onclick="issuePrescription()" style="width: 100%;">
+          Sign & Issue Digital Prescription
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 7: DIGITAL PRESCRIPTIONS ==================== -->
+  <main id="view-prescriptions" class="app-view container" style="padding: 40px 20px;">
+    <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div>
+        <span class="badge badge-green">Cryptographically Verified</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Digital Prescriptions</h1>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-secondary" onclick="window.print()">
+          <i data-lucide="printer" style="width: 16px; height: 16px;"></i> Print / Download PDF
+        </button>
+        <button class="btn btn-primary" onclick="copyRxShareLink()">
+          <i data-lucide="share-2" style="width: 16px; height: 16px;"></i> Share Securely
+        </button>
+      </div>
+    </div>
+
+    <!-- Official Printable Prescription Card -->
+    <div class="printable-rx" style="background: white; color: #0b1f3a; border-radius: var(--radius-xl); padding: 40px; border: 2px solid var(--border-color); box-shadow: var(--shadow-md); max-width: 800px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px;">
+        <div>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #0b1f3a;">CareBridge AI Telehealth</h2>
+          <p style="font-size: 0.8rem; color: #64748b;">Virtual Clinic Network • Official Medical Prescription</p>
+        </div>
+        <div style="text-align: right;">
+          <span class="badge badge-green">Doctor-Approved ✓</span>
+          <p style="font-family: monospace; font-size: 0.8rem; color: #64748b; margin-top: 4px;" id="rx-view-number">RX-CB-2026-8842</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; font-size: 0.85rem;">
+        <div>
+          <strong style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Prescribing Doctor</strong>
+          <span style="font-weight: 800; font-size: 1rem;">Dr. Sarah Jenkins, MD</span><br>
+          <span>Cardiology • License #MD-92847-US</span>
+        </div>
+        <div style="text-align: right;">
+          <strong style="display: block; font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Patient</strong>
+          <span style="font-weight: 800; font-size: 1rem;">Sarah Ahmed</span><br>
+          <span>Age: 32 • Date: Today, Nov 17, 2026</span>
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 24px; font-size: 0.85rem;">
+        <strong>Diagnosis:</strong> <span id="rx-view-diagnosis">Benign exertional palpitations / mild sinus arrhythmia</span>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px;">℞ Prescribed Medications</h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid #cbd5e1; text-align: left; color: #64748b; font-size: 0.75rem;">
+              <th style="padding: 8px 0;">Medicine & Strength</th>
+              <th style="padding: 8px;">Dosage</th>
+              <th style="padding: 8px;">Frequency</th>
+              <th style="padding: 8px;">Duration</th>
+            </tr>
+          </thead>
+          <tbody id="rx-view-meds-table">
+            <!-- Populated via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="border-top: 2px solid #e2e8f0; padding-top: 20px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <div style="width: 60px; height: 60px; background: #f1f5f9; border: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-family: monospace; color: #64748b;">
+            [VALID QR]
+          </div>
+          <span style="font-size: 0.65rem; color: #94a3b8; display: block; margin-top: 4px;">SHA256-CB-9081249A</span>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-family: Georgia, serif; font-style: italic; font-size: 1.25rem; color: #1e3a8a;">Dr. Sarah Jenkins, MD</div>
+          <p style="font-size: 0.75rem; color: #64748b;">Digitally Signed & Validated</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Emergency Red Flag Modal -->
+  <div class="modal-overlay" id="modal-emergency">
+    <div class="modal-box" style="border: 2px solid var(--danger-red);">
+      <div style="background: var(--danger-red); color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-weight: 800; font-size: 1.1rem;">🚨 CRITICAL MEDICAL EMERGENCY</h3>
+        <button onclick="closeModal('modal-emergency')" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      </div>
+      <div class="modal-body" style="font-size: 0.85rem; line-height: 1.6;">
+        <p style="color: var(--danger-red); font-weight: 700; margin-bottom: 12px;">Do not wait for a telemedicine call if you or someone nearby is experiencing:</p>
+        <ul style="padding-left: 20px; margin-bottom: 20px;">
+          <li>Severe chest pain, pressure, or radiating pain to the jaw/arm</li>
+          <li>Extreme difficulty breathing or choking</li>
+          <li>Stroke symptoms (FAST): Face drooping, Arm weakness, Slurred speech</li>
+          <li>Unconsciousness, severe bleeding, or suicidal thoughts</li>
+        </ul>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-bottom: 16px;">
+          <a href="tel:911" class="btn btn-danger">Call 911 (US/CA)</a>
+          <a href="tel:112" class="btn btn-secondary">Call 112 (EU/UK)</a>
+          <a href="tel:1122" class="btn btn-secondary">Call 1122 (Rescue)</a>
+        </div>
+        <button class="btn btn-secondary" onclick="closeModal('modal-emergency')" style="width: 100%;">I understand this is not an emergency. Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Confirmation Modal -->
+  <div class="modal-overlay" id="modal-booking">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-weight: 800; font-size: 1.1rem;" id="booking-modal-title">Book Doctor</h3>
+        <button onclick="closeModal('modal-booking')" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="booking-step-form">
+          <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">Select Date:</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 16px;" id="booking-date-chips">
+            <button class="chat-pill active" onclick="setBookingDate(this, 'Today, Nov 17')">Today (Nov 17)</button>
+            <button class="chat-pill" onclick="setBookingDate(this, 'Tomorrow, Nov 18')">Tomorrow (Nov 18)</button>
+            <button class="chat-pill" onclick="setBookingDate(this, 'Wed, Nov 19')">Wed (Nov 19)</button>
+          </div>
+
+          <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">Available Time Slots:</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;" id="booking-slots-chips">
+            <!-- Slots populated dynamically -->
+          </div>
+
+          <label style="font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 6px;">Reason for Visit:</label>
+          <input type="text" id="booking-reason-input" class="chat-input" placeholder="e.g. Follow-up on symptoms..." style="width: 100%; margin-bottom: 16px;">
+
+          <button class="btn btn-primary" onclick="confirmAppointmentBooking()" style="width: 100%;">Confirm Consultation</button>
+        </div>
+
+        <div id="booking-step-success" style="display: none; text-align: center; padding: 20px 0;">
+          <div style="font-size: 3rem; margin-bottom: 12px;">✅</div>
+          <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px;">Consultation Confirmed!</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Your video appointment has been scheduled and added to your dashboard.</p>
+          <button class="btn btn-teal" onclick="switchView('consultation'); closeModal('modal-booking');">Enter Video Room</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
